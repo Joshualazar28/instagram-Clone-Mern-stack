@@ -10,6 +10,9 @@ const Genders = Object.freeze({
     Other: 'other',
 });
 
+
+
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,

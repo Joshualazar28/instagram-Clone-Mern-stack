@@ -28,12 +28,16 @@ router.get('/', requireLogin, (req, res) => {
 
 
 router.get('/joshua', (req, res) => {
-
     res.send('joshau');
 });
 
 
 router.post('/signup', (req, res) => {
+
+
+
+
+
 
     const { name, email, password, gender } = req.body
     if (!name || !email || !password || !gender)
@@ -182,14 +186,15 @@ router.post('/signin', (req, res) => {
 
                 else
                 {
+
                     bcrypt.compare(password, savedUser.password)
                         .then(doMatch => {
                             if (doMatch)
                             {
 
                                 const token = jwt.sign({ _id: savedUser._id, }, config.get('JSONTOKEN'))
-                                const { _id, name, email } = savedUser
-                                res.send({ token: token, user: { _id, name, email } });
+                                const { _id, name, email, avatar } = savedUser
+                                res.send({ token: token, user: { _id, name, email, avatar } });
 
                                 // res.json({ message: "User signin Succcessful !! " })
 

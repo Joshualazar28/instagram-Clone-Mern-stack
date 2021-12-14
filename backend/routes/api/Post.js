@@ -64,7 +64,7 @@ router.post('/createpost', requireLogin, (req, res) => {
 router.get('/mypost', requireLogin, (req, res) => {
 
     Post.find({ postedBy: req.user._id })
-        .populate("postedBy", "_id name")
+        .populate("postedBy", "_id name avatar date")
         .then(showallpost => {
             res.json({ showallpost });
         })
@@ -72,5 +72,6 @@ router.get('/mypost', requireLogin, (req, res) => {
             console.log(err);
         })
 });
+// joshua
 
 module.exports = router

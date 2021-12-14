@@ -1,9 +1,9 @@
-// const config=require('./config.env')
-const dotenv = require('dotenv').config({ path: "./config.env" })
+// const conf ig=require('./config.env')
+// const dotenv = require('dotenv').config({ path: "./config.env" })
 const express = require('express')
 const mongoose = require('mongoose')
-const connectDB = require('./config/db')
-const path = require("path")
+// const connectDB = require('./config/db')
+// const path = require("path")
 // api router
 const auth = require('./routes/api/auth')
 const Post = require('./routes/api/Post')
@@ -11,14 +11,18 @@ const app = express()
 
 
 
+mongoose.connect('mongodb+srv://joshua:joshua123@cluster0.j0ess.mongodb.net/Blog?retryWrites=true&w=majority').then(() => {
+    console.log('connection db')
+})
 
 
-// postmen connection
+
+// postmen conn ection
 app.use(express.json())
 
 
 // mongodb connection
-connectDB()
+// connectDB()
 
 
 
@@ -38,7 +42,7 @@ app.use('/api/blog', Post)
 
 if (process.env.NODE_ENV === "production")
 {
-    app.use(express.static(path.join(__dirname, '../build')))
+    app.use(express.static(path.join(__dirname, 'frontend/build')))
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname, './frontend', 'build', 'index.html'))
     })
@@ -47,10 +51,10 @@ if (process.env.NODE_ENV === "production")
 
 
 // PORT
-const PORT = process.env.PORT || 5000
+const PORT = 8080
 
 
 // app Running
 app.listen(PORT, () => {
-    console.log(`Server ${process.env.NODE_ENV} is Listening on ${PORT}`)
+    console.log(`Server  is Listening on ${PORT}`)
 })
